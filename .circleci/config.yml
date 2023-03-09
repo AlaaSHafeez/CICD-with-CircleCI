@@ -63,12 +63,16 @@ jobs:
     <<: *anchor
     steps:
       - print_pipeline_id:
-          id: " test the command parameter"  # this id parameter expects a string value
-
+          id: 333  # this id parameter expects a string value
+      - run: 
+          name: on_fail job
+          command: echo "this is on_fail test !"
+          when: on_fail
+  
   on-fail-job:
       <<: *anchor
       steps:
-        - run: 
+        - run: exit 1
         - run: 
             name: on_fail job
             command: echo "this is on_fail test !"
@@ -87,5 +91,5 @@ workflows:
       # - print_output_file:
       #     requires:
       #       - save_hello_world_output
-      # - my_job
+      - my_job
       - on-fail-job
