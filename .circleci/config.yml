@@ -64,7 +64,7 @@ jobs:
     <<: *anchor
     steps:
       - print_pipeline_id:
-          id: 3
+          id: "test command parameter"
 
 workflows:
   # Name the workflow "welcome"
