@@ -6,6 +6,7 @@ orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
+
 jobs:
   print_hello:
     docker:
@@ -23,7 +24,7 @@ jobs:
     - run:
        name: echo "world"
        command: echo "world"
-
+# Shared files topology using  persist_to_workspace and attach_workspace 
   save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
@@ -43,6 +44,23 @@ jobs:
     - attach_workspace:
         at: ~/
     - run: cat ~/output.txt
+
+
+# Use Anchor, Aliases and Commands 
+anchor: &anchor
+    docker:
+      - image: circleci/node:13.8.0
+
+command:
+  print_pipeline_id:
+    steps:
+      - run: echo $CIRCLE_WORKFLOW_ID
+
+  my_job: 
+    <<: *anchor
+    steps:
+      - print_pipeline_id
+
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -53,7 +71,8 @@ workflows:
       # - print_world:
       #     requires:
       #       - print_hello  
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      # - save_hello_world_output
+      # - print_output_file:
+      #     requires:
+      #       - save_hello_world_output
+      - my_job
