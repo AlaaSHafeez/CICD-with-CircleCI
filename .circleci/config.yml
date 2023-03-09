@@ -19,42 +19,42 @@ commands:
     steps:
       - run: echo << parameters.id >>
 jobs:
-  print_hello:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-    - checkout
-    - run:
-       name: echo "hello"
-       command: echo "hello"
-  print_world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-    - checkout
-    - run:
-       name: echo "world"
-       command: echo "world"
+  # print_hello:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #   - checkout
+  #   - run:
+  #      name: echo "hello"
+  #      command: echo "hello"
+  # print_world:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #   - checkout
+  #   - run:
+  #      name: echo "world"
+  #      command: echo "world"
 # Shared files topology using  persist_to_workspace and attach_workspace 
-  save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-    - checkout
-    - run: echo "text to output here" > ~/output.txt
-    - persist_to_workspace:
-        root: ~/
-        paths:
-          - output.txt
+  # save_hello_world_output:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #   - checkout
+  #   - run: echo "text to output here" > ~/output.txt
+  #   - persist_to_workspace:
+  #       root: ~/
+  #       paths:
+  #         - output.txt
 
-  print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-    - checkout
-    - attach_workspace:
-        at: ~/
-    - run: cat ~/output.txt
+  # print_output_file:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #   - checkout
+  #   - attach_workspace:
+  #       at: ~/
+  #   - run: cat ~/output.txt
 
 
 # Use Anchor, Aliases and Commands 
@@ -63,7 +63,15 @@ jobs:
     <<: *anchor
     steps:
       - print_pipeline_id:
-          id: "test command parameter"
+          id: 3 # this id parameter expects a string value
+
+  on-fail-job:
+      <<: *anchor
+      steps:
+        - run: 
+            name: on_fail job
+            command: echo "on_fail job test"
+            when: on_fail
 
 workflows:
   # Name the workflow "welcome"
@@ -80,3 +88,4 @@ workflows:
       #     requires:
       #       - save_hello_world_output
       - my_job
+      - on-fail-job
