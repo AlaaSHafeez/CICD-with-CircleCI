@@ -63,7 +63,7 @@ jobs:
     <<: *anchor
     steps:
       - print_pipeline_id:
-          id: 3 # this id parameter expects a string value
+          id:  # this id parameter expects a string value
 
   on-fail-job:
       <<: *anchor
@@ -75,8 +75,7 @@ jobs:
 
 workflows:
   # Name the workflow "welcome"
-  welcome:
-
+  my-workflow:
     # Run the welcome/run job in its own container
     jobs:
       # - print_hello
