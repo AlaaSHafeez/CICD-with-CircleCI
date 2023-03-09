@@ -7,14 +7,14 @@ orbs:
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
 
-  anchor: &anchor
-      docker:
-        - image: circleci/node:13.8.0
+anchor: &anchor
+    docker:
+      - image: circleci/node:13.8.0
 
-  commands:
-    print_pipeline_id:
-      steps:
-        - run: echo ${CIRCLE_WORKFLOW_ID}
+commands:
+  print_pipeline_id:
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
 jobs:
   print_hello:
     docker:
