@@ -68,7 +68,7 @@ jobs:
   on-fail-job:
       <<: *anchor
       steps:
-        - run: return 1
+        - run: 
         - run: 
             name: on_fail job
             command: echo "this is on_fail test !"
@@ -87,5 +87,5 @@ workflows:
       # - print_output_file:
       #     requires:
       #       - save_hello_world_output
-      - my_job
+      # - my_job
       - on-fail-job
