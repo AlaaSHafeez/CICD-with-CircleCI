@@ -13,8 +13,12 @@ anchor: &anchor
 
 commands:
   print_pipeline_id:
+    parameters:
+      id: 
+        type: string
     steps:
-      - run: echo ${CIRCLE_WORKFLOW_ID}
+      - run:  echo << parameters.id >>
+      - run: echo $CIRCLE_WORKFLOW_ID
 jobs:
   print_hello:
     docker:
@@ -75,4 +79,5 @@ workflows:
       # - print_output_file:
       #     requires:
       #       - save_hello_world_output
-      - my_job
+      - my_job:
+          id: 3
